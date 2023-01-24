@@ -1,0 +1,26 @@
+﻿@model FISAdmin.Models.SubaccModel
+@using Microsoft.AspNetCore.Identity
+@using FISAdmin.Areas.Identity.Data
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+
+
+@{
+
+    ViewData["Title"] = "Details";
+    SubaccModel record = ViewData["subacc"] != null ? (SubaccModel)ViewData["subacc"] : null;
+
+}
+
+<div class="card-body">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><label asp-for="Tajuk" class="control-label"></label><input asp-for="Tajuk" class="form-control" value="@record.Tajuk" disabled /></li>
+        <li class="list-group-item"><label asp-for="CreatedBy" class="control-label"></label><input asp-for="CreatedBy" class="form-control" value="@record.CreatedBy" disabled /></li>
+        <li class="list-group-item"><label asp-for="CreatedDate" class="control-label"></label><input asp-for="CreatedDate" type="datetime" class="form-control" value="@record.CreatedDate" disabled /></li>
+        <li class="list-group-item"><label asp-for="LastModifiedBy" class="control-label"></label><input asp-for="LastModifiedBy" class="form-control" value="@record.LastModifiedBy" disabled /></li>
+        <li class="list-group-item"><label asp-for="LastModifiedDate" class="control-label"></label><input asp-for="LastModifiedDate" type="datetime" class="form-control" value="@record.LastModifiedDate" disabled /></li>
+    </ul>
+    <hr />
+    <a asp-action="Edit" asp-route-id="@record.Kod" class="btn btn-primary"><i class="fa-solid fa-pen"></i>&nbsp Edit</a>
+    <a asp-action="Delete" asp-route-id="@record.Kod" class="btn btn-danger float-right"><i class="fa-solid fa-trash"></i>&nbsp Delete</a>
+</div>

@@ -1,0 +1,82 @@
+﻿@model FISAdmin.Models.SubaccModel
+
+@using Microsoft.AspNetCore.Identity
+@using FISAdmin.Areas.Identity.Data
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+
+
+<form method="post">
+    <div class="card-header bg-success text-white">
+        <h3 class="card-title"><b>Enter Kod and Tajuk.</b></h3>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <p class="card-text">by @UserManager.GetUserAsync(User).Result.Nama (@UserManager.GetUserAsync(User).Result.Nopeng)</p>
+        }
+    </div>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label asp-for="Kod" class="control-label"></label>
+
+                    @if (ViewData["type"].ToString() == "Subaccount Aktiviti")
+                    {
+                        <input asp-for="Kod" class="form-control" maxlength="6" minlength="6" required />
+                    }
+                    @if (ViewData["type"].ToString() == "Subaccount Kumpulan Wang")
+                    {
+                        <input asp-for="Kod" class="form-control" maxlength="4" minlength="4" required />
+                    }
+                    @if (ViewData["type"].ToString() == "Subaccount Penyumbang")
+                    {
+                        <input asp-for="Kod" class="form-control" maxlength="4" minlength="4" required />
+                    }
+                    @if (ViewData["type"].ToString() == "Subaccount Sumber")
+                    {
+                        <input asp-for="Kod" class="form-control" maxlength="2" minlength="2" required />
+                    }
+
+                    <span asp-validation-for="Kod" class="text-danger"></span>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label asp-for="Tajuk" class="control-label"></label>
+
+                    @if (ViewData["type"].ToString() == "Subaccount Penyumbang")
+                    {
+                        <input asp-for="Tajuk" class="form-control" maxlength="200" minlength="1" required />
+                    }
+                    else
+                    {
+                        <input asp-for="Tajuk" class="form-control" maxlength="100" minlength="1" required />
+                    }
+
+                    <span asp-validation-for="Tajuk" class="text-danger"></span>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label asp-for="CreatedBy" class="control-label" hidden></label>
+                    <input asp-for="CreatedBy" class="form-control" value="@UserManager.GetUserAsync(User).Result.Nopeng" hidden />
+                    <span asp-validation-for="CreatedBy" class="text-danger" hidden></span>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label asp-for="LastModifiedBy" class="control-label" hidden></label>
+                    <input asp-for="LastModifiedBy" class="form-control" value="@UserManager.GetUserAsync(User).Result.Nopeng" hidden />
+                    <span asp-validation-for="LastModifiedBy" class="text-danger" hidden></span>
+                </div>
+            </li>
+
+
+
+        </ul>
+        <hr />
+        @*<div asp-validation-summary="All"></div>*@
+        <button type="submit" class="btn btn-success" style="width:150px"><i class="fa-solid fa-circle-plus"></i>&nbsp Create</button>
+        @*  <a asp-controller="SubaccAktiviti" asp-action="Index" class="btn btn-secondary float-right">Back to Subaccount Aktiviti</a>*@
+    </div>
+</form>

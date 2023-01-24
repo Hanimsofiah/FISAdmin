@@ -1,0 +1,153 @@
+﻿@model FISAdmin.Models.SubaccModel
+
+@{
+    ViewData["title"] = "List of";
+  
+    //var data = (SubaccModel)ViewData["sm"];
+
+}
+
+<!-- Content Wrapper. Contains page content-->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1><b>@ViewData["type"].ToString()</b></h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="breadcrumb-item active">@ViewData["type"].ToString()</li>
+                       
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">@ViewData["title"] @ViewData["type"].ToString()</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+            <!--Page Contents-->
+            <div class="card" style="width: 100%;">
+                @* <img class="card-img-top" src="..." alt="Card image cap">*@
+                <div class="card-header bg-dark mb-3">
+                    <a asp-action="Create" class="btn btn-success float-right">
+                        <i class="fa-solid fa-circle-plus"></i>&nbsp Create New
+                    </a>
+                </div>
+                <div class="card-body">
+
+                    <table class="table table-bordered table-light" style="width:100%" id="index_table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @*Tag Helper*@
+                                    <label asp-for="Kod" class="control-label"></label>
+                                </th>
+                                <th>
+
+                                    @*Tag Helper*@
+                                    <label asp-for="Tajuk" class="control-label"></label>
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <!--Calling Index Partial View-->
+                       @* <partial name="~/Views/_SubaccountForm/_ViewIndex.cshtml" view-data="ViewData" />*@
+                            <tbody>
+                                @foreach (var obj in ViewData["subacc"] as List<SubaccModel>)
+                                {
+                                    <tr>
+                                        <td width="20%">
+                                            @*Tag Helper*@
+                                            @obj.Kod
+                                        </td>
+
+                                        <td width="42%">
+                                            @*Tag Helper*@
+                                            @obj.Tajuk
+                                        </td>
+
+                                        <td>
+
+                                            <div class="w-75 btn-group" role="group">
+
+                                                @*Tag Helper*@
+                                                <a asp-action="Details" asp-route-id="@obj.Kod" class="btn btn-secondary mx-2"><i class="fa-solid fa-eye"></i>&nbsp Details</a>
+                                                <a asp-action="Edit" asp-route-id="@obj.Kod" class="btn btn-primary mx-2"><i class="fa-solid fa-pen"></i>&nbsp Edit</a>
+                                                <a asp-action="Delete" asp-route-id="@obj.Kod" class="btn btn-danger mx-2"><i class="fa-solid fa-trash"></i>&nbsp Delete</a>
+
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+        
+                    </table>
+                </div>
+            </div>
+            <!--/. Page Contents-->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                @ViewData["type"].ToString() - FISAdmin @DateTime.Now.Year
+            </div>
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+@section Scripts {
+    <script type="text/JavaScript">
+
+        $(document).ready(function () {
+
+           /// $('#partialZone').load("~/Views/_ViewSubaccIndex.cshtml");
+
+            $('#index_table').DataTable({
+                "autoWidth": false,
+                "lengthChange": false,
+                "pageLength": 10
+            });
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+        });
+
+        $('.select2bs4').change(function () {
+
+            var id = $('.select2bs4').find(":selected").text();
+            document.getElementById("name").innerHTML = id;
+            console.log('id' + id);
+        });
+    </script>
+}

@@ -1,0 +1,109 @@
+﻿@model FISAdmin.Models.SubaccModel
+
+@{
+
+    ViewData["Title"] = "Details";
+    SubaccModel record = ViewData["aktiviti"] != null ? (SubaccModel)ViewData["aktiviti"] : null;
+
+}
+<h1>@ViewData["Title"]</h1>
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    @*<h1>Details Subaccount Aktiviti</h1>*@
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Blank Page</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Details Subaccount Aktiviti</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <!--Page Contents-->
+
+                <h1>Details for @record.Kod</h1>
+
+                <hr />
+                <div class="row">
+                    <div class="col">
+                        <div class="card" style="width: 100%;">
+                           @* <img class="card-img-top" src="..." alt="Card image cap">*@
+                            <div class="card-header bg-secondary text-white">
+                                <h3 class="card-title"><b>@record.Kod - @record.Tajuk</b></h3>
+                                <p class="card-text">Last Modified by @record.LastModifiedBy at @record.LastModifiedDate</p>
+                           </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><label asp-for="Tajuk" class="control-label"></label><input asp-for="Tajuk" class="form-control" value="@record.Tajuk" disabled /></li>
+                                    <li class="list-group-item"><label asp-for="CreatedBy" class="control-label"></label><input asp-for="CreatedBy" class="form-control" value="@record.CreatedBy" disabled /></li>
+                                    <li class="list-group-item"><label asp-for="CreatedDate" class="control-label"></label><input asp-for="CreatedDate" type="datetime" class="form-control" value="@record.CreatedDate" disabled /></li>
+                                    <li class="list-group-item"><label asp-for="LastModifiedBy" class="control-label"></label><input asp-for="LastModifiedBy" class="form-control" value="@record.LastModifiedBy" disabled /></li>
+                                    <li class="list-group-item"><label asp-for="LastModifiedDate" class="control-label"></label><input asp-for="LastModifiedDate" type="datetime" class="form-control" value="@record.LastModifiedDate" disabled /></li>
+                                </ul>
+                                <hr />
+                                <a asp-action="Edit" asp-route-id="@record.Kod" class="btn btn-primary"><i class="fa-solid fa-pen"></i>&nbsp Edit</a>
+                                <a asp-action="Delete" asp-route-id="@record.Kod" class="btn btn-danger float-right"><i class="fa-solid fa-trash"></i>&nbsp Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <a asp-action="Index">Back to List</a>
+                </div>
+
+                <!--/. Page Contents-->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                Footer
+            </div>
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script type="text/JavaScript">
+
+
+
+    </script>
+}
+
+

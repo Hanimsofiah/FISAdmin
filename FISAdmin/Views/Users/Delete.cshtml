@@ -1,0 +1,185 @@
+﻿@model FISAdmin.Models.UsersModel
+@using Microsoft.AspNetCore.Identity
+@using FISAdmin.Areas.Identity.Data
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+
+    ViewData["title"] = "Delete";
+    UsersModel record = ViewData["user"] != null ? (UsersModel)ViewData["user"] : null;
+
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1><b>@ViewData["type"].ToString()</b></h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="breadcrumb-item"><a asp-action="Index">@ViewData["type"].ToString()</a></li>
+                        <li class="breadcrumb-item active">@ViewData["title"]</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fa-solid fa-trash"></i>&nbsp @ViewData["title"] @ViewData["type"].ToString()</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <!--Page Contents-->
+                <div class="row">
+                    <div class="col">
+                        <div class="card" style="width: 100%;">
+                            @* <img class="card-img-top" src="~/AdminLTE/dist/img/logo.png" alt="Card image cap">*@
+
+                            <form method="post">
+                                <div class="card-header bg-danger">
+                                    <h3 class="card-title"><b>Delete for @record.Nopeng</b></h3>
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <p class="card-text">by @UserManager.GetUserAsync(User).Result.Nama (@UserManager.GetUserAsync(User).Result.Nopeng) </p>
+                                    }
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+
+                                        <div class="form-group">
+                                            <label asp-for="Id" class="control-label" hidden></label>
+                                            <input asp-for="Id" class="form-control" value="@record.Id" hidden />
+                                            <span asp-validation-for="Id" class="text-danger" hidden></span>
+                                        </div>
+
+                                        <li class="list-group-item">
+                                            <div class="form-group">
+                                                <label asp-for="Nama" class="control-label"></label>
+                                                <input asp-for="Nama" class="form-control" value="@record.Nama" disabled />
+                                                <span asp-validation-for="Nama" class="text-danger" disabled></span>
+                                            </div>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <label asp-for="Email" class="control-label" disabled></label>
+                                            <input asp-for="Email" class="form-control" value="@record.Email" disabled />
+                                            <span asp-validation-for="Email" class="text-danger" disabled></span>
+                                        </li>
+
+
+                                        <li class="list-group-item">
+                                            <label asp-for="ActiveStatus" class="control-label" disabled></label>
+                                            <select class="form-control select2bs4" asp-for="ActiveStatus" disabled>
+
+                                                @if (@record.ActiveStatus == 1)
+                                                {
+                                                    <option selected="selected" value="@record.ActiveStatus" disabled>Active</option>
+                                                    <option value="2" disabled>Inactive</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="1" disabled>Active</option>
+                                                    <option selected="selected" value="@record.ActiveStatus" disabled>Inactive</option>
+                                                }
+                                            </select>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <label asp-for="RoleName" class="control-label" disabled></label>
+                                            <select class="form-control select2bs4" asp-for="RoleId" disabled>
+                                                <option selected="selected" disabled>@record.RoleName</option>
+                                            </select>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <div class="form-group">
+                                                <label asp-for="CreatedBy" class="control-label"></label>
+                                                <input asp-for="CreatedBy" class="form-control" value="@record.CreatedBy" disabled />
+                                                <span asp-validation-for="CreatedBy" class="text-danger" disabled></span>
+                                            </div>
+                                        </li>
+
+
+                                        <li class="list-group-item">
+                                            <div class="form-group">
+                                                <label asp-for="CreatedDate" class="control-label"></label>
+                                                <input asp-for="CreatedDate" type="datetime" class="form-control" value="@record.CreatedDate" disabled />
+                                                <span asp-validation-for="CreatedDate" class="text-danger" disabled></span>
+                                            </div>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <div class="form-group">
+                                                <label asp-for="LastModifiedBy" class="control-label"></label>
+                                                <input asp-for="LastModifiedBy" class="form-control" value="@record.LastModifiedBy" disabled />
+                                                <span asp-validation-for="LastModifiedBy" class="text-danger" disabled></span>
+                                            </div>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <div class="form-group">
+                                                <label asp-for="LastModifiedDate" class="control-label"></label>
+                                                <input asp-for="LastModifiedDate" type="datetime" class="form-control" value="@record.LastModifiedDate" disabled />
+                                                <span asp-validation-for="LastModifiedDate" class="text-danger" disabled></span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <hr />
+                                    <button type="submit" class="btn btn-danger" style="width:150px"><i class="fa-solid fa-trash"></i>&nbsp Delete</button>
+                                    @*  <a asp-controller="SubaccAktiviti" asp-action="Index" class="btn btn-secondary float-right">Back to Subaccount Aktiviti</a>*@
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a asp-action="Index">Back to List</a>
+                </div>
+                <!--/. Page Contents-->
+
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                @ViewData["type"].ToString() - FISAdmin @DateTime.Now.Year
+            </div>
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script type="text/JavaScript">
+
+
+
+    </script>
+}
+
+

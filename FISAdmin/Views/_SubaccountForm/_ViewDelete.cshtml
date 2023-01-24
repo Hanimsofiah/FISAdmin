@@ -1,0 +1,71 @@
+﻿@model FISAdmin.Models.SubaccModel
+@using Microsoft.AspNetCore.Identity
+@using FISAdmin.Areas.Identity.Data
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+
+
+@{
+
+    ViewData["Title"] = "Edit";
+    SubaccModel record = ViewData["subacc"] != null ? (SubaccModel)ViewData["subacc"] : null;
+
+}
+
+<form method="post">
+    <div class="card-header bg-danger">
+        <h3 class="card-title"><b>Delete for @record.Kod - @record.Tajuk</b></h3>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <p class="card-text">by @UserManager.GetUserAsync(User).Result.Nama (@UserManager.GetUserAsync(User).Result.Nopeng)</p>
+        }
+    </div>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+
+            <div class="form-group">
+                <label asp-for="Kod" class="control-label" hidden></label>
+                <input asp-for="Kod" class="form-control" value="@record.Kod" hidden />
+                <span asp-validation-for="Kod" class="text-danger" hidden></span>
+            </div>
+
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label asp-for="Tajuk" class="control-label"></label>
+                    <input asp-for="Tajuk" class="form-control" value="@record.Tajuk" disabled />
+                    <span asp-validation-for="Tajuk" class="text-danger" disabled></span>
+                </div>
+            </li>
+
+
+            <div class="form-group">
+                <label asp-for="CreatedBy" class="control-label"></label>
+                <input asp-for="CreatedBy" class="form-control" value="@record.CreatedBy" disabled />
+                <span asp-validation-for="CreatedBy" class="text-danger" disabled></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" type="datetime" class="form-control" value="@record.CreatedDate" disabled />
+                <span asp-validation-for="CreatedDate" class="text-danger" disabled></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="LastModifiedBy" class="control-label"></label>
+                <input asp-for="LastModifiedBy" class="form-control" value="@record.LastModifiedBy" disabled />
+                <span asp-validation-for="LastModifiedBy" class="text-danger" disabled></span>
+            </div>
+          
+            <div class="form-group">
+                <label asp-for="LastModifiedDate" class="control-label"></label>
+                <input asp-for="LastModifiedDate" type="datetime" class="form-control" value="@record.LastModifiedDate" disabled />
+                <span asp-validation-for="LastModifiedDate" class="text-danger" disabled></span>
+            </div>
+            
+
+
+        </ul>
+        <hr />
+        <button type="submit" class="btn btn-danger" style="width:150px"><i class="fa-solid fa-trash"></i>&nbsp Delete</button>
+        @*  <a asp-controller="SubaccAktiviti" asp-action="Index" class="btn btn-secondary float-right">Back to Subaccount Aktiviti</a>*@
+    </div>
+</form>

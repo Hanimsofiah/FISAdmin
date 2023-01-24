@@ -1,0 +1,122 @@
+﻿@model FISAdmin.Models.RolesModel
+@using Microsoft.AspNetCore.Identity
+@using FISAdmin.Areas.Identity.Data
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+
+    ViewData["title"] = "Delete";
+    RolesModel record = ViewData["role"] != null ? (RolesModel)ViewData["role"] : null;
+
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1><b>@ViewData["type"].ToString()</b></h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="breadcrumb-item"><a asp-action="Index">@ViewData["type"].ToString()</a></li>
+                        <li class="breadcrumb-item active">@ViewData["title"]</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fa-solid fa-trash"></i>&nbsp @ViewData["title"] @ViewData["type"].ToString()</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <!--Page Contents-->
+                <div class="row">
+                    <div class="col">
+                        <div class="card" style="width: 100%;">
+                            @* <img class="card-img-top" src="~/AdminLTE/dist/img/logo.png" alt="Card image cap">*@
+
+                            <form method="post">
+                                <div class="card-header bg-danger">
+                                    <h3 class="card-title"><b>Delete for @record.Name</b></h3>
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <p class="card-text">by @UserManager.GetUserAsync(User).Result.Nama (@UserManager.GetUserAsync(User).Result.Nopeng) </p>
+                                    }
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+
+                                        <div class="form-group">
+                                            <label asp-for="Id" class="control-label" hidden></label>
+                                            <input asp-for="Id" class="form-control" value="@record.Id" hidden />
+                                            <span asp-validation-for="Id" class="text-danger" hidden></span>
+                                        </div>
+
+                                        <li class="list-group-item">
+                                            <div class="form-group">
+                                                <label asp-for="Name" class="control-label"></label>
+                                                <input asp-for="Name" class="form-control" value="@record.Name" disabled />
+                                                <span asp-validation-for="Name" class="text-danger" disabled></span>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                    <hr />
+                                    <button type="submit" class="btn btn-danger" style="width:150px"><i class="fa-solid fa-trash"></i>&nbsp Delete</button>
+                                    @*  <a asp-controller="SubaccAktiviti" asp-action="Index" class="btn btn-secondary float-right">Back to Subaccount Aktiviti</a>*@
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a asp-action="Index">Back to List</a>
+                </div>
+                <!--/. Page Contents-->
+
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                @ViewData["type"].ToString() - FISAdmin @DateTime.Now.Year
+            </div>
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script type="text/JavaScript">
+
+
+
+    </script>
+}
+
+
