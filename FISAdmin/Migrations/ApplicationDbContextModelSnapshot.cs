@@ -48,7 +48,7 @@ namespace FISAdmin.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 1, 16, 8, 35, 57, 418, DateTimeKind.Local).AddTicks(2551))
+                        .HasDefaultValue(new DateTime(2023, 1, 26, 10, 12, 20, 555, DateTimeKind.Local).AddTicks(7511))
                         .HasColumnName("CreatedDate");
 
                     b.Property<string>("Email")
