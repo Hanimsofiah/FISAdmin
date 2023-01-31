@@ -96,6 +96,8 @@
                             <tbody>
                                 @foreach (var obj in displaydata)
                                 {
+
+
                                     <tr>
                                         @*<td width="20%">
                                             @*Tag Helper
@@ -105,6 +107,7 @@
                                         <td width="30%">
                                             @*Tag Helper*@
                                             @obj.Nama
+                                           
                                         </td>
                                         <td width="16%">
                                             @*Tag Helper*@
@@ -114,7 +117,7 @@
                                             @*Tag Helper*@
                                             @obj.RoleName
                                         </td>
-                                        <td width="20%">
+                                        <td width="16%">
                                             @*Tag Helper*@
                                             @if (@obj.ActiveStatus == 1)
                                             {
@@ -128,16 +131,29 @@
                                         </td>
                                         <td>
 
-                                            <div class="w-75 btn-group" role="group">
+                                            <div class="w-125 btn-group" role="group">
 
+                                                    
                                                 @*Tag Helper*@
+                                                <a asp-action="Details" asp-route-id="@obj.Id" class="btn btn-secondary mx-2"><i class="fa-solid fa-eye"></i>&nbsp Details</a>
                                                 <a asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2"><i class="fa-solid fa-pen"></i>&nbsp Edit</a>
-                                                <a asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2"><i class="fa-solid fa-trash"></i>&nbsp Delete</a>
+
+                                                <form asp-action="Delete">
+
+                                                    <label asp-for="Id" class="control-label" hidden></label>
+                                                    <input asp-for="Id" class="form-control" value="@obj.Id" hidden />
+                                                    <span asp-validation-for="Id" class="text-danger" hidden></span>
+                                                 
+                                                    <button type="submit" class="btn btn-danger mx-2" onclick="return confirm('Are you sure to delete @obj.Nama (@obj.Nopeng) ?');"><i class="fa-solid fa-trash"></i>&nbsp Delete</button>
+
+                                                </form>
 
                                             </div>
 
                                         </td>
+
                                     </tr>
+
                                 }
                             </tbody>
 
@@ -145,6 +161,7 @@
                     </div>
                 </div>
 
+                
                 <!--/. Page Contents-->
             </div>
             <!-- /.card-body -->
@@ -172,7 +189,7 @@
             });
 
         });
-     
+
         
     </script>
 

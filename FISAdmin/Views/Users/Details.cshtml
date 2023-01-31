@@ -6,7 +6,7 @@
 
 @{
 
-    ViewData["title"] = "Delete";
+    ViewData["title"] = "Details";
     UsersModel record = ViewData["user"] != null ? (UsersModel)ViewData["user"] : null;
 
 }
@@ -37,7 +37,7 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title"><i class="fa-solid fa-trash"></i>&nbsp @ViewData["title"] @ViewData["type"].ToString()</h3>
+                <h3 class="card-title"><i class="fa-solid fa-eye"></i>&nbsp @ViewData["title"] @ViewData["type"].ToString()</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -57,8 +57,8 @@
                             @* <img class="card-img-top" src="~/AdminLTE/dist/img/logo.png" alt="Card image cap">*@
 
                             <form method="post">
-                                <div class="card-header bg-danger">
-                                    <h3 class="card-title"><b>Delete for @record.Nopeng</b></h3>
+                                <div class="card-header bg-secondary">
+                                    <h3 class="card-title"><b>Details for @record.Nopeng</b></h3>
                                     @if (SignInManager.IsSignedIn(User))
                                     {
                                         <p class="card-text">by @UserManager.GetUserAsync(User).Result.Nama (@UserManager.GetUserAsync(User).Result.Nopeng) </p>
@@ -146,7 +146,7 @@
                                         </li>
                                     </ul>
                                     <hr />
-                                    <button type="submit" class="btn btn-danger" style="width:150px" onclick="return confirm('Are you sure to delete?');"><i class="fa-solid fa-trash"></i>&nbsp Delete</button>
+                                    <button asp-action="Index" type="submit" class="btn btn-secondary" style="width:150px">Back</button>
                                     @*  <a asp-controller="SubaccAktiviti" asp-action="Index" class="btn btn-secondary float-right">Back to Subaccount Aktiviti</a>*@
                                 </div>
                             </form>
