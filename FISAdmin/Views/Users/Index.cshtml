@@ -1,4 +1,6 @@
 ﻿@model FISAdmin.Models.UsersModel
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 
 @{
 
@@ -158,6 +160,7 @@
 </div>
 <!-- /.content-wrapper -->
 @section Scripts {
+
     <script type="text/JavaScript">
 
         $(document).ready(function () {
@@ -169,6 +172,9 @@
             });
 
         });
-
+     
+        
     </script>
+
+
 }
