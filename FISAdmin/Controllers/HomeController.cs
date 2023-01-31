@@ -1,25 +1,44 @@
-﻿using FISAdmin.Models;
+﻿using FISAdmin.Areas.Identity.Data;
+using FISAdmin.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+
 
 namespace FISAdmin.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
+            _userManager = userManager;
         }
+
 
         public IActionResult Index()
         {
-            return View();
+            var userId = _userManager.GetUserId(HttpContext.User);
+            if(userId == null)
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+                /*return View();*/
+            }
+            else
+            {
+                /*ApplicationUser user = _userManager.FindByIdAsync(userId).Result;
+                return View(user);*/
+                return View();
+            }
         }
 
         public IActionResult Privacy()
         {
+     
             return View();
         }
 
