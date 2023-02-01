@@ -19,7 +19,6 @@ namespace FISAdmin.Controllers
             _userManager = userManager;
         }
 
-
         public IActionResult Index()
         {
             var userId = _userManager.GetUserId(HttpContext.User);
@@ -37,8 +36,7 @@ namespace FISAdmin.Controllers
         }
 
         public IActionResult Privacy()
-        {
-     
+        {  
             return View();
         }
 

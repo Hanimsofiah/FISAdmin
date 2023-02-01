@@ -9,18 +9,14 @@ namespace FISAdmin.Models
     public class UsersModel
     {
         /* dropdown user list & dropdown roles list */
-
         public List<SelectListItem> Roles { get; set; }
         public List<SelectListItem> Users { get; set; }
 
-
         /* dbfis - dbo.AspNetUsers - list all column data to use for edit/display */
-
         [Key]
         [DisplayName("User ID")]
         [Column("Id")]
         [DataType(DataType.Text)]
-
         public string Id { get; set; }
 
         [Column("Nopeng")]
@@ -35,7 +31,6 @@ namespace FISAdmin.Models
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "User is required")]
         public string Nama { get; set; } = "";
-
 
         [Column("ActiveStatus")]
         [DisplayName("Active Status")]
@@ -75,21 +70,15 @@ namespace FISAdmin.Models
         public string user_no { get; set; } = "user";
 
         /* dbfis - dbo.AspNetUsersRoles */
-
         [DisplayName("Role Id")]
         [Column("Id")]
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "Role is required")]
-
         public string RoleId { get; set; }
-
 
         [DisplayName("Role Name")]
         [Column("Name")]
         [DataType(DataType.Text)]
-
         public string RoleName { get; set; }
-
-
     }
 }
