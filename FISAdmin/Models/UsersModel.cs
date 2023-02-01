@@ -71,7 +71,8 @@ namespace FISAdmin.Models
         [DataType(DataType.DateTime)]
         public DateTime? LastModifiedDate { get; set; } = DateTime.Now;
 
-
+        /* unique id for cshtml */
+        public string user_no { get; set; } = "user";
 
         /* dbfis - dbo.AspNetUsersRoles */
 

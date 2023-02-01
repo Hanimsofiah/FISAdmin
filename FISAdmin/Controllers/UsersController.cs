@@ -26,11 +26,15 @@ namespace AdminFIS.Controllers
          //GET: Index
         public IActionResult Index()
         {
+            int no = 0;
+            string user = "user";
+
             List<UsersModel> result = new List<UsersModel>();
 
             using (SqlConnection con = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
             {
-                string sql = "SELECT AspNetUsers.Id, AspNetUsers.Nopeng, AspNetUsers.Nama, AspNetUsers.ActiveStatus, AspNetUserRoles.RoleId, AspNetRoles.Name " +
+                string sql = "SELECT AspNetUsers.Id, AspNetUsers.Nopeng, AspNetUsers.Nama, AspNetUsers.ActiveStatus, AspNetUsers.CreatedBy, AspNetUsers.CreatedDate, AspNetUsers.LastModifiedBy, AspNetUsers.LastModifiedDate, " +
+                    "AspNetUsers.Email, AspNetUserRoles.RoleId, AspNetRoles.Name " +
                     "FROM AspNetUsers FULL JOIN AspNetUserRoles ON AspNetUsers.Id=AspNetUserRoles.UserId JOIN AspNetRoles ON AspNetUserRoles.RoleId = AspNetRoles.Id";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 con.Open();
@@ -40,10 +44,21 @@ namespace AdminFIS.Controllers
                     while (sdr.Read())
                     {
                         UsersModel obj = new UsersModel();
+                        no++;
+
+                        obj.user_no = user + no.ToString();
+
                         obj.Id = sdr["Id"].ToString();
                         obj.Nopeng = sdr["Nopeng"].ToString();
                         obj.Nama = sdr["Nama"].ToString();
                         obj.ActiveStatus = (int)sdr["ActiveStatus"];
+
+                        obj.CreatedBy = sdr["CreatedBy"].ToString();
+                        obj.CreatedDate = (DateTime) sdr["CreatedDate"];
+                        obj.LastModifiedBy = sdr["LastModifiedBy"].ToString();
+                        obj.LastModifiedDate = (DateTime) sdr["LastModifiedDate"];
+
+                        obj.Email = sdr["Email"].ToString();
                         obj.RoleId = sdr["RoleId"].ToString();
                         obj.RoleName = sdr["Name"].ToString();
 
@@ -521,36 +536,71 @@ namespace AdminFIS.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete()
         {
-            using (SqlConnection con = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
+            var userId = _userManager.GetUserId(HttpContext.User);
+            UsersModel um = new UsersModel();
+           
+            using (SqlConnection con3 = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
             {
-                string sql = "DELETE FROM AspNetUserRoles WHERE UserId=@UserId";
+                string sql3 = "SELECT Id FROM AspNetUsers WHERE Id=@Id";
+                SqlCommand cmd3 = new SqlCommand(sql3, con3);
+                cmd3.Parameters.Add("@Id", System.Data.SqlDbType.NVarChar).Value = Request.Form["Id"].ToString();
 
-                SqlCommand cmd = new SqlCommand(sql, con);
+                con3.Open();
 
-                cmd.Parameters.Add("@UserId", System.Data.SqlDbType.NVarChar).Value = Request.Form["Id"].ToString();
+                SqlDataReader dr3 = cmd3.ExecuteReader();
+                if (dr3.HasRows)
+                {
+                    while (dr3.Read())
+                    {
+                        um.Id = dr3.GetString(0);
+                    }
+                }
 
-                con.Open();
-                cmd.ExecuteNonQuery();
+                con3.Close();
 
             }
-            using (SqlConnection con2 = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
+
+            if (um.Id == userId)
             {
-                string sql2 = "DELETE FROM AspNetUsers WHERE Id=@Id";
+                TempData["error"] = "Cannot Delete Yourself!";
+            }
+            else
+            {
 
-                SqlCommand cmd2 = new SqlCommand(sql2, con2);
+                using (SqlConnection con = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
+                {
+                    string sql = "DELETE FROM AspNetUserRoles WHERE UserId=@UserId";
 
-                cmd2.Parameters.Add("@Id", System.Data.SqlDbType.NVarChar).Value = Request.Form["Id"].ToString();
+                    SqlCommand cmd = new SqlCommand(sql, con);
 
-                con2.Open();
-                cmd2.ExecuteNonQuery();
+                    cmd.Parameters.Add("@UserId", System.Data.SqlDbType.NVarChar).Value = Request.Form["Id"].ToString();
 
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+
+                }
+
+                using (SqlConnection con2 = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
+                {
+                    string sql2 = "DELETE FROM AspNetUsers WHERE Id=@Id";
+
+                    SqlCommand cmd2 = new SqlCommand(sql2, con2);
+
+                    cmd2.Parameters.Add("@Id", System.Data.SqlDbType.NVarChar).Value = Request.Form["Id"].ToString();
+
+                    con2.Open();
+                    cmd2.ExecuteNonQuery();
+
+                }
+
+                TempData["success"] = "Access User deleted successfully";
             }
 
-
-            TempData["success"] = "Access User deleted successfully";
+           
             ViewData["type"] = type;
 
             return RedirectToAction(nameof(Index));
+
 
         }
 

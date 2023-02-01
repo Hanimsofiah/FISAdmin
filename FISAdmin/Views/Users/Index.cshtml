@@ -105,40 +105,132 @@
                                         </td>*@
 
                                         <td width="30%">
-                                            @*Tag Helper*@
-                                            @obj.Nama
-                                           
+                                           @obj.Nama                          
                                         </td>
                                         <td width="16%">
-                                            @*Tag Helper*@
                                             @obj.Nopeng
                                         </td>
                                         <td width="16%">
-                                            @*Tag Helper*@
                                             @obj.RoleName
                                         </td>
                                         <td width="16%">
-                                            @*Tag Helper*@
-                                            @if (@obj.ActiveStatus == 1)
-                                            {
-                                                <p>Active</p>
-                                            }
-                                            else
-                                            {
-                                                <p>Inactive</p>
-                                            }
-
+                                            @if (@obj.ActiveStatus == 1){<p>Active</p>}
+                                            else{<p>Inactive</p>}
                                         </td>
                                         <td>
 
                                             <div class="w-125 btn-group" role="group">
 
-                                                    
-                                                @*Tag Helper*@
-                                                <a asp-action="Details" asp-route-id="@obj.Id" class="btn btn-secondary mx-2"><i class="fa-solid fa-eye"></i>&nbsp Details</a>
+                                                <!-- Button Details trigger modal -->
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#detail_@obj.user_no">
+                                                    <i class="fa-solid fa-eye"></i>&nbsp Details
+                                                </button>
+
+                                                <!-- Details Modal -->
+                                                <div class="modal fade" id="detail_@obj.user_no" tabindex="-1" role="dialog" aria-labelledby="detailmodal" aria-hidden="true">
+                                                  <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                      <div class="modal-header bg-secondary">
+                                                                <h5 class="modal-title" id="detailmodal"><i class="fa-solid fa-eye"></i>&nbsp Details for @obj.Nama (@obj.Nopeng)</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                          <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                        <ul class="list-group list-group-flush">
+
+                                                            <div class="form-group">
+                                                                <label asp-for="Id" class="control-label" hidden></label>
+                                                                <input asp-for="Id" class="form-control" value="@obj.Id" hidden />
+                                                                <span asp-validation-for="Id" class="text-danger" hidden></span>
+                                                            </div>
+
+                                                            <li class="list-group-item">
+                                                                <div class="form-group">
+                                                                    <label asp-for="Nama" class="control-label"></label>
+                                                                    <input asp-for="Nama" class="form-control" value="@obj.Nama" disabled />
+                                                                    <span asp-validation-for="Nama" class="text-danger" disabled></span>
+                                                                </div>
+                                                            </li>
+
+                                                            <li class="list-group-item">
+                                                                <label asp-for="Email" class="control-label" disabled></label>
+                                                                <input asp-for="Email" class="form-control" value="@obj.Email" disabled />
+                                                                <span asp-validation-for="Email" class="text-danger" disabled></span>
+                                                            </li>
+
+
+                                                            <li class="list-group-item">
+                                                                <label asp-for="ActiveStatus" class="control-label" disabled></label>
+                                                                <select class="form-control select2bs4" asp-for="ActiveStatus" disabled>
+
+                                                                    @if (@obj.ActiveStatus == 1)
+                                                                    {
+                                                                        <option selected="selected" value="@obj.ActiveStatus" disabled>Active</option>
+                                                                        <option value="2" disabled>Inactive</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="1" disabled>Active</option>
+                                                                        <option selected="selected" value="@obj.ActiveStatus" disabled>Inactive</option>
+                                                                    }
+                                                                </select>
+                                                            </li>
+
+                                                            <li class="list-group-item">
+                                                                <label asp-for="RoleName" class="control-label" disabled></label>
+                                                                <select class="form-control select2bs4" asp-for="RoleId" disabled>
+                                                                    <option selected="selected" disabled>@obj.RoleName</option>
+                                                                </select>
+                                                            </li>
+
+                                                            <li class="list-group-item">
+                                                                <div class="form-group">
+                                                                    <label asp-for="CreatedBy" class="control-label"></label>
+                                                                    <input asp-for="CreatedBy" class="form-control" value="@obj.CreatedBy" disabled />
+                                                                    <span asp-validation-for="CreatedBy" class="text-danger" disabled></span>
+                                                                </div>
+                                                            </li>
+
+
+                                                            <li class="list-group-item">
+                                                                <div class="form-group">
+                                                                    <label asp-for="CreatedDate" class="control-label"></label>
+                                                                    <input asp-for="CreatedDate" type="datetime" class="form-control" value="@obj.CreatedDate" disabled />
+                                                                    <span asp-validation-for="CreatedDate" class="text-danger" disabled></span>
+                                                                </div>
+                                                            </li>
+
+                                                            <li class="list-group-item">
+                                                                <div class="form-group">
+                                                                    <label asp-for="LastModifiedBy" class="control-label"></label>
+                                                                    <input asp-for="LastModifiedBy" class="form-control" value="@obj.LastModifiedBy" disabled />
+                                                                    <span asp-validation-for="LastModifiedBy" class="text-danger" disabled></span>
+                                                                </div>
+                                                            </li>
+
+                                                            <li class="list-group-item">
+                                                                <div class="form-group">
+                                                                    <label asp-for="LastModifiedDate" class="control-label"></label>
+                                                                    <input asp-for="LastModifiedDate" type="datetime" class="form-control" value="@obj.LastModifiedDate" disabled />
+                                                                    <span asp-validation-for="LastModifiedDate" class="text-danger" disabled></span>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+                                              
+
+                                               @* <a asp-action="Details" asp-route-id="@obj.Id" class="btn btn-secondary mx-2"><i class="fa-solid fa-eye"></i>&nbsp Details</a>*@
                                                 <a asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2"><i class="fa-solid fa-pen"></i>&nbsp Edit</a>
 
-                                                <form asp-action="Delete">
+                                                @*<form asp-action="Delete">
 
                                                     <label asp-for="Id" class="control-label" hidden></label>
                                                     <input asp-for="Id" class="form-control" value="@obj.Id" hidden />
@@ -146,7 +238,44 @@
                                                  
                                                     <button type="submit" class="btn btn-danger mx-2" onclick="return confirm('Are you sure to delete @obj.Nama (@obj.Nopeng) ?');"><i class="fa-solid fa-trash"></i>&nbsp Delete</button>
 
-                                                </form>
+                                                </form>*@
+
+                                                <!-- Delete Button trigger modal -->
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_@obj.user_no">
+                                                    <i class="fa-solid fa-trash"></i>&nbsp Delete
+                                                </button>
+
+                                                <!-- Delete Modal -->
+                                                <div class="modal fade" id="delete_@obj.user_no" tabindex="-1" role="dialog" aria-labelledby="deletemodal" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header bg-danger">
+                                                                <h5 class="modal-title" id="deletemodal"><i class="fa-solid fa-trash"></i>&nbsp Delete for @obj.Nama (@obj.Nopeng)</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure to delete @obj.Nama (@obj.Nopeng) ?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                 <form asp-action="Delete">
+
+                                                                    <label asp-for="Id" class="control-label" hidden></label>
+                                                                    <input asp-for="Id" class="form-control" value="@obj.Id" hidden />
+                                                                    <span asp-validation-for="Id" class="text-danger" hidden></span>
+
+                                                                    <button type="submit" class="btn btn-danger mx-2"><i class="fa-solid fa-trash"></i>&nbsp Delete</button>
+
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
 
                                             </div>
 
