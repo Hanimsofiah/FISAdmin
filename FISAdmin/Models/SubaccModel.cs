@@ -9,20 +9,7 @@ namespace FISAdmin.Models
 
     public class SubaccModel
     {
-
-        public List<SelectListItem>? aktiviti { get; set; }
-
-        public List<SelectListItem>? kump_wang { get; set; }
-
-        public List<SelectListItem>? penyumbang { get; set; }
-
-        public List<SelectListItem>? sumber { get; set; }
-
-        public string? subacc_type { get; set; }
-
-
-        
-
+       
         [Key]
         [DisplayName("Kod")]
         [Column("kod")]
@@ -32,9 +19,6 @@ namespace FISAdmin.Models
 
         public string? Kod { get; set; }
 
-
-
-
         [DisplayName("Tajuk")]
         [Column("tajuk")]
         [DataType(DataType.Text)]
@@ -43,12 +27,10 @@ namespace FISAdmin.Models
         public string? Tajuk { get; set; }
 
 
-
         [DisplayName("Created By")]
         [Column("CreatedBy")]
         [DataType(DataType.Text)]
         public string? CreatedBy { get; set; }
-
 
 
         [DisplayName("Created On")]
@@ -58,12 +40,9 @@ namespace FISAdmin.Models
         public DateTime? CreatedDate { get; set; }
 
 
-
         [DisplayName("Last Modified By")]
         [Column("LastModifiedBy")]
         public string? LastModifiedBy { get; set; }
-
-
 
         [DisplayName("Last Modified On")]
         [Column("LastModifiedDate")]

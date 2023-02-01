@@ -29,8 +29,6 @@ namespace AdminFIS.Controllers
             int no = 0;
             string user = "user";
 
-            List<UsersModel> result = new List<UsersModel>();
-
             using (SqlConnection con = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
             {
                 string sql = "SELECT AspNetUsers.Id, AspNetUsers.Nopeng, AspNetUsers.Nama, AspNetUsers.ActiveStatus, AspNetUsers.CreatedBy, AspNetUsers.CreatedDate, AspNetUsers.LastModifiedBy, AspNetUsers.LastModifiedDate, " +
@@ -350,186 +348,185 @@ namespace AdminFIS.Controllers
             
         }
 
-
-
+        //Users/Delete is replaced by Modal Delete Box in Index.cshtml
         //GET: Delete
-      /*  public IActionResult Delete(String? id)
-        {
-            var userId = _userManager.GetUserId(HttpContext.User);
-            if (userId == id)
-            {
-                UsersModel um = new UsersModel();
+        /*  public IActionResult Delete(String? id)
+          {
+              var userId = _userManager.GetUserId(HttpContext.User);
+              if (userId == id)
+              {
+                  UsersModel um = new UsersModel();
 
-                using (SqlConnection con = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
-                {
-                    string sql = "SELECT Id,Nopeng,Nama,ActiveStatus,Email,CreatedBy,LastModifiedBy,CreatedDate,LastModifiedDate FROM AspNetUsers WHERE Id=@Id";
-                    SqlCommand cmd = new SqlCommand(sql, con);
-                    cmd.Parameters.Add("@Id", System.Data.SqlDbType.NVarChar).Value = id;
+                  using (SqlConnection con = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
+                  {
+                      string sql = "SELECT Id,Nopeng,Nama,ActiveStatus,Email,CreatedBy,LastModifiedBy,CreatedDate,LastModifiedDate FROM AspNetUsers WHERE Id=@Id";
+                      SqlCommand cmd = new SqlCommand(sql, con);
+                      cmd.Parameters.Add("@Id", System.Data.SqlDbType.NVarChar).Value = id;
 
-                    con.Open();
+                      con.Open();
 
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    if (dr.HasRows)
-                    {
-                        while (dr.Read())
-                        {
-                            um.Id = dr.GetString(0);
-                            um.Nopeng = dr.GetString(1);
-                            um.Nama = dr.GetString(2);
-                            um.ActiveStatus = dr.GetInt32(3);
-                            um.Email = dr.GetString(4);
-                            um.CreatedBy = dr.GetString(5);
-                            um.LastModifiedBy = dr.IsDBNull(6) ? null : dr.GetString(6);
-                            um.CreatedDate = dr.GetDateTime(7);
-                            um.LastModifiedDate = dr.IsDBNull(8) ? null : dr.GetDateTime(8);
+                      SqlDataReader dr = cmd.ExecuteReader();
+                      if (dr.HasRows)
+                      {
+                          while (dr.Read())
+                          {
+                              um.Id = dr.GetString(0);
+                              um.Nopeng = dr.GetString(1);
+                              um.Nama = dr.GetString(2);
+                              um.ActiveStatus = dr.GetInt32(3);
+                              um.Email = dr.GetString(4);
+                              um.CreatedBy = dr.GetString(5);
+                              um.LastModifiedBy = dr.IsDBNull(6) ? null : dr.GetString(6);
+                              um.CreatedDate = dr.GetDateTime(7);
+                              um.LastModifiedDate = dr.IsDBNull(8) ? null : dr.GetDateTime(8);
 
-                        }
-                    }
+                          }
+                      }
 
-                    con.Close();
+                      con.Close();
 
-                }
+                  }
 
-                using (SqlConnection con3 = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
-                {
-                    string sql3 = "SELECT RoleId FROM AspNetUserRoles WHERE UserId=@UserId";
-                    SqlCommand cmd3 = new SqlCommand(sql3, con3);
-                    cmd3.Parameters.Add("@UserId", System.Data.SqlDbType.NVarChar).Value = um.Id;
+                  using (SqlConnection con3 = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
+                  {
+                      string sql3 = "SELECT RoleId FROM AspNetUserRoles WHERE UserId=@UserId";
+                      SqlCommand cmd3 = new SqlCommand(sql3, con3);
+                      cmd3.Parameters.Add("@UserId", System.Data.SqlDbType.NVarChar).Value = um.Id;
 
-                    con3.Open();
+                      con3.Open();
 
-                    SqlDataReader dr3 = cmd3.ExecuteReader();
-                    if (dr3.HasRows)
-                    {
-                        while (dr3.Read())
-                        {
-                            um.RoleId = dr3.GetString(0);
+                      SqlDataReader dr3 = cmd3.ExecuteReader();
+                      if (dr3.HasRows)
+                      {
+                          while (dr3.Read())
+                          {
+                              um.RoleId = dr3.GetString(0);
 
-                        }
-                    }
+                          }
+                      }
 
-                    con3.Close();
+                      con3.Close();
 
-                }
+                  }
 
-                using (SqlConnection con2 = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
-                {
-                    string sql2 = "SELECT Name FROM AspNetRoles WHERE Id=@Id";
-                    SqlCommand cmd2 = new SqlCommand(sql2, con2);
-                    cmd2.Parameters.Add("@Id", System.Data.SqlDbType.NVarChar).Value = um.RoleId;
+                  using (SqlConnection con2 = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
+                  {
+                      string sql2 = "SELECT Name FROM AspNetRoles WHERE Id=@Id";
+                      SqlCommand cmd2 = new SqlCommand(sql2, con2);
+                      cmd2.Parameters.Add("@Id", System.Data.SqlDbType.NVarChar).Value = um.RoleId;
 
-                    con2.Open();
+                      con2.Open();
 
-                    SqlDataReader dr2 = cmd2.ExecuteReader();
-                    if (dr2.HasRows)
-                    {
-                        while (dr2.Read())
-                        {
+                      SqlDataReader dr2 = cmd2.ExecuteReader();
+                      if (dr2.HasRows)
+                      {
+                          while (dr2.Read())
+                          {
 
-                            um.RoleName = dr2.GetString(0);
-                        }
-                    }
+                              um.RoleName = dr2.GetString(0);
+                          }
+                      }
 
-                    con2.Close();
+                      con2.Close();
 
-                }
+                  }
 
-                UsersModel roles_users = new UsersModel();
-                roles_users.Roles = PopulateRoles();
-                roles_users.Users = PopulateUsers();
+                  UsersModel roles_users = new UsersModel();
+                  roles_users.Roles = PopulateRoles();
+                  roles_users.Users = PopulateUsers();
 
-                ViewData["user"] = um;
-                ViewData["type"] = type;
-                TempData["error"] = "Access User cannot be deleted";
-            }
-            else
-            {
-                UsersModel um = new UsersModel();
+                  ViewData["user"] = um;
+                  ViewData["type"] = type;
+                  TempData["error"] = "Access User cannot be deleted";
+              }
+              else
+              {
+                  UsersModel um = new UsersModel();
 
-                using (SqlConnection con = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
-                {
-                    string sql = "SELECT Id,Nopeng,Nama,ActiveStatus,Email,CreatedBy,LastModifiedBy,CreatedDate,LastModifiedDate FROM AspNetUsers WHERE Id=@Id";
-                    SqlCommand cmd = new SqlCommand(sql, con);
-                    cmd.Parameters.Add("@Id", System.Data.SqlDbType.NVarChar).Value = id;
+                  using (SqlConnection con = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
+                  {
+                      string sql = "SELECT Id,Nopeng,Nama,ActiveStatus,Email,CreatedBy,LastModifiedBy,CreatedDate,LastModifiedDate FROM AspNetUsers WHERE Id=@Id";
+                      SqlCommand cmd = new SqlCommand(sql, con);
+                      cmd.Parameters.Add("@Id", System.Data.SqlDbType.NVarChar).Value = id;
 
-                    con.Open();
+                      con.Open();
 
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    if (dr.HasRows)
-                    {
-                        while (dr.Read())
-                        {
-                            um.Id = dr.GetString(0);
-                            um.Nopeng = dr.GetString(1);
-                            um.Nama = dr.GetString(2);
-                            um.ActiveStatus = dr.GetInt32(3);
-                            um.Email = dr.GetString(4);
-                            um.CreatedBy = dr.GetString(5);
-                            um.LastModifiedBy = dr.IsDBNull(6) ? null : dr.GetString(6);
-                            um.CreatedDate = dr.GetDateTime(7);
-                            um.LastModifiedDate = dr.IsDBNull(8) ? null : dr.GetDateTime(8);
+                      SqlDataReader dr = cmd.ExecuteReader();
+                      if (dr.HasRows)
+                      {
+                          while (dr.Read())
+                          {
+                              um.Id = dr.GetString(0);
+                              um.Nopeng = dr.GetString(1);
+                              um.Nama = dr.GetString(2);
+                              um.ActiveStatus = dr.GetInt32(3);
+                              um.Email = dr.GetString(4);
+                              um.CreatedBy = dr.GetString(5);
+                              um.LastModifiedBy = dr.IsDBNull(6) ? null : dr.GetString(6);
+                              um.CreatedDate = dr.GetDateTime(7);
+                              um.LastModifiedDate = dr.IsDBNull(8) ? null : dr.GetDateTime(8);
 
-                        }
-                    }
+                          }
+                      }
 
-                    con.Close();
+                      con.Close();
 
-                }
+                  }
 
-                using (SqlConnection con3 = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
-                {
-                    string sql3 = "SELECT RoleId FROM AspNetUserRoles WHERE UserId=@UserId";
-                    SqlCommand cmd3 = new SqlCommand(sql3, con3);
-                    cmd3.Parameters.Add("@UserId", System.Data.SqlDbType.NVarChar).Value = um.Id;
+                  using (SqlConnection con3 = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
+                  {
+                      string sql3 = "SELECT RoleId FROM AspNetUserRoles WHERE UserId=@UserId";
+                      SqlCommand cmd3 = new SqlCommand(sql3, con3);
+                      cmd3.Parameters.Add("@UserId", System.Data.SqlDbType.NVarChar).Value = um.Id;
 
-                    con3.Open();
+                      con3.Open();
 
-                    SqlDataReader dr3 = cmd3.ExecuteReader();
-                    if (dr3.HasRows)
-                    {
-                        while (dr3.Read())
-                        {
-                            um.RoleId = dr3.GetString(0);
+                      SqlDataReader dr3 = cmd3.ExecuteReader();
+                      if (dr3.HasRows)
+                      {
+                          while (dr3.Read())
+                          {
+                              um.RoleId = dr3.GetString(0);
 
-                        }
-                    }
+                          }
+                      }
 
-                    con3.Close();
+                      con3.Close();
 
-                }
+                  }
 
-                using (SqlConnection con2 = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
-                {
-                    string sql2 = "SELECT Name FROM AspNetRoles WHERE Id=@Id";
-                    SqlCommand cmd2 = new SqlCommand(sql2, con2);
-                    cmd2.Parameters.Add("@Id", System.Data.SqlDbType.NVarChar).Value = um.RoleId;
+                  using (SqlConnection con2 = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
+                  {
+                      string sql2 = "SELECT Name FROM AspNetRoles WHERE Id=@Id";
+                      SqlCommand cmd2 = new SqlCommand(sql2, con2);
+                      cmd2.Parameters.Add("@Id", System.Data.SqlDbType.NVarChar).Value = um.RoleId;
 
-                    con2.Open();
+                      con2.Open();
 
-                    SqlDataReader dr2 = cmd2.ExecuteReader();
-                    if (dr2.HasRows)
-                    {
-                        while (dr2.Read())
-                        {
+                      SqlDataReader dr2 = cmd2.ExecuteReader();
+                      if (dr2.HasRows)
+                      {
+                          while (dr2.Read())
+                          {
 
-                            um.RoleName = dr2.GetString(0);
-                        }
-                    }
+                              um.RoleName = dr2.GetString(0);
+                          }
+                      }
 
-                    con2.Close();
+                      con2.Close();
 
-                }
+                  }
 
-                UsersModel roles_users = new UsersModel();
-                roles_users.Roles = PopulateRoles();
-                roles_users.Users = PopulateUsers();
+                  UsersModel roles_users = new UsersModel();
+                  roles_users.Roles = PopulateRoles();
+                  roles_users.Users = PopulateUsers();
 
-                ViewData["user"] = um;
-                ViewData["type"] = type;
-            }
+                  ViewData["user"] = um;
+                  ViewData["type"] = type;
+              }
 
-            return View();
-        }*/
+              return View();
+          }*/
 
         //POST: Delete
         [HttpPost, ActionName("Delete")]
@@ -539,28 +536,8 @@ namespace AdminFIS.Controllers
             var userId = _userManager.GetUserId(HttpContext.User);
             UsersModel um = new UsersModel();
            
-            using (SqlConnection con3 = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
-            {
-                string sql3 = "SELECT Id FROM AspNetUsers WHERE Id=@Id";
-                SqlCommand cmd3 = new SqlCommand(sql3, con3);
-                cmd3.Parameters.Add("@Id", System.Data.SqlDbType.NVarChar).Value = Request.Form["Id"].ToString();
-
-                con3.Open();
-
-                SqlDataReader dr3 = cmd3.ExecuteReader();
-                if (dr3.HasRows)
-                {
-                    while (dr3.Read())
-                    {
-                        um.Id = dr3.GetString(0);
-                    }
-                }
-
-                con3.Close();
-
-            }
-
-            if (um.Id == userId)
+            //Check if Id is current User Id
+            if (Request.Form["Id"].ToString() == userId)
             {
                 TempData["error"] = "Cannot Delete Yourself!";
             }
@@ -605,6 +582,7 @@ namespace AdminFIS.Controllers
         }
 
 
+        //Users/Details/?id is replaced by Modal Details Box in Index.cshtml
         //GET: Details
         public IActionResult Details(String? id)
         {

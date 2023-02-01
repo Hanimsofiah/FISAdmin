@@ -26,12 +26,10 @@
 
     <!-- Main content -->
     <section class="content">
-
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">@ViewData["title"] @ViewData["type"].ToString()</h3>
-
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
@@ -41,10 +39,8 @@
                     </button>
                 </div>
             </div>
-            <div class="card-body">
-           
-                <!--Page Contents-->
-                
+            <div class="card-body">        
+                <!--Page Contents-->          
                 <div class="card" style="width: 100%;">
                     @* <img class="card-img-top" src="..." alt="Card image cap">*@
                     <div class="card-header bg-dark mb-3">
@@ -53,7 +49,6 @@
                         </a>
                     </div>
                     <div class="card-body">
-
                         <table class="table table-bordered table-light" style="width:100%" id="index_table">
                             <thead>
                                 <tr>
@@ -62,7 +57,6 @@
                                         <label asp-for="Id" class="control-label"></label>
                                     </th>
                                     <th>
-
                                         @*Tag Helper*@
                                         <label asp-for="Name" class="control-label"></label>
                                     </th>
@@ -71,7 +65,6 @@
                                     </th>
                                 </tr>
                             </thead>
-
                             <!--Calling Index Partial View-->
                             @* <partial name="~/Views/_SubaccountForm/_ViewIndex.cshtml" view-data="ViewData" />*@
                             <tbody>
@@ -79,34 +72,24 @@
                                 {
                                     <tr>
                                         <td width="20%">
-                                            @*Tag Helper*@
                                             @obj.Id
                                         </td>
-
                                         <td width="42%">
-                                            @*Tag Helper*@
                                             @obj.Name
                                         </td>
-
                                         <td>
-
                                             <div class="w-75 btn-group" role="group">
-
                                                 @*Tag Helper*@
                                                 <a asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2"><i class="fa-solid fa-pen"></i>&nbsp Edit</a>
                                                 <a asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2"><i class="fa-solid fa-trash"></i>&nbsp Delete</a>
-
                                             </div>
-
                                         </td>
                                     </tr>
                                 }
                             </tbody>
-
                         </table>
                     </div>
                 </div>
-
                 <!--/. Page Contents-->
             </div>
             <!-- /.card-body -->
@@ -116,7 +99,6 @@
             <!-- /.card-footer-->
         </div>
         <!-- /.card -->
-
     </section>
     <!-- /.content -->
 </div>

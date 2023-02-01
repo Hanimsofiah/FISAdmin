@@ -9,10 +9,12 @@
 <form method="post">
     <div class="card-header bg-success text-white">
         <h3 class="card-title"><b>Enter Kod and Tajuk.</b></h3>
+
         @if (SignInManager.IsSignedIn(User))
         {
             <p class="card-text">by @UserManager.GetUserAsync(User).Result.Nama (@UserManager.GetUserAsync(User).Result.Nopeng)</p>
         }
+
     </div>
     <div class="card-body">
         <ul class="list-group list-group-flush">
@@ -24,11 +26,7 @@
                     {
                         <input asp-for="Kod" class="form-control" maxlength="6" minlength="6" required />
                     }
-                    @if (ViewData["type"].ToString() == "Subaccount Kumpulan Wang")
-                    {
-                        <input asp-for="Kod" class="form-control" maxlength="4" minlength="4" required />
-                    }
-                    @if (ViewData["type"].ToString() == "Subaccount Penyumbang")
+                    @if (ViewData["type"].ToString() == "Subaccount Kumpulan Wang" || ViewData["type"].ToString() == "Subaccount Penyumbang")
                     {
                         <input asp-for="Kod" class="form-control" maxlength="4" minlength="4" required />
                     }
@@ -70,9 +68,6 @@
                     <span asp-validation-for="LastModifiedBy" class="text-danger" hidden></span>
                 </div>
             </li>
-
-
-
         </ul>
         <hr />
         @*<div asp-validation-summary="All"></div>*@

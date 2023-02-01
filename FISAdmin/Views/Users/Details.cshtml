@@ -33,12 +33,10 @@
 
     <!-- Main content -->
     <section class="content">
-
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title"><i class="fa-solid fa-eye"></i>&nbsp @ViewData["title"] @ViewData["type"].ToString()</h3>
-
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
@@ -49,30 +47,28 @@
                 </div>
             </div>
             <div class="card-body">
-
                 <!--Page Contents-->
                 <div class="row">
                     <div class="col">
                         <div class="card" style="width: 100%;">
                             @* <img class="card-img-top" src="~/AdminLTE/dist/img/logo.png" alt="Card image cap">*@
-
                             <form method="post">
                                 <div class="card-header bg-secondary">
                                     <h3 class="card-title"><b>Details for @record.Nopeng</b></h3>
+
                                     @if (SignInManager.IsSignedIn(User))
                                     {
                                         <p class="card-text">by @UserManager.GetUserAsync(User).Result.Nama (@UserManager.GetUserAsync(User).Result.Nopeng) </p>
                                     }
+
                                 </div>
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush">
-
                                         <div class="form-group">
                                             <label asp-for="Id" class="control-label" hidden></label>
                                             <input asp-for="Id" class="form-control" value="@record.Id" hidden />
                                             <span asp-validation-for="Id" class="text-danger" hidden></span>
                                         </div>
-
                                         <li class="list-group-item">
                                             <div class="form-group">
                                                 <label asp-for="Nama" class="control-label"></label>
@@ -80,14 +76,11 @@
                                                 <span asp-validation-for="Nama" class="text-danger" disabled></span>
                                             </div>
                                         </li>
-
                                         <li class="list-group-item">
                                             <label asp-for="Email" class="control-label" disabled></label>
                                             <input asp-for="Email" class="form-control" value="@record.Email" disabled />
                                             <span asp-validation-for="Email" class="text-danger" disabled></span>
                                         </li>
-
-
                                         <li class="list-group-item">
                                             <label asp-for="ActiveStatus" class="control-label" disabled></label>
                                             <select class="form-control select2bs4" asp-for="ActiveStatus" disabled>
@@ -102,16 +95,15 @@
                                                     <option value="1" disabled>Active</option>
                                                     <option selected="selected" value="@record.ActiveStatus" disabled>Inactive</option>
                                                 }
+
                                             </select>
                                         </li>
-
                                         <li class="list-group-item">
                                             <label asp-for="RoleName" class="control-label" disabled></label>
                                             <select class="form-control select2bs4" asp-for="RoleId" disabled>
                                                 <option selected="selected" disabled>@record.RoleName</option>
                                             </select>
                                         </li>
-
                                         <li class="list-group-item">
                                             <div class="form-group">
                                                 <label asp-for="CreatedBy" class="control-label"></label>
@@ -119,8 +111,6 @@
                                                 <span asp-validation-for="CreatedBy" class="text-danger" disabled></span>
                                             </div>
                                         </li>
-
-
                                         <li class="list-group-item">
                                             <div class="form-group">
                                                 <label asp-for="CreatedDate" class="control-label"></label>
@@ -128,7 +118,6 @@
                                                 <span asp-validation-for="CreatedDate" class="text-danger" disabled></span>
                                             </div>
                                         </li>
-
                                         <li class="list-group-item">
                                             <div class="form-group">
                                                 <label asp-for="LastModifiedBy" class="control-label"></label>
@@ -136,7 +125,6 @@
                                                 <span asp-validation-for="LastModifiedBy" class="text-danger" disabled></span>
                                             </div>
                                         </li>
-
                                         <li class="list-group-item">
                                             <div class="form-group">
                                                 <label asp-for="LastModifiedDate" class="control-label"></label>
@@ -157,7 +145,6 @@
                     <a asp-action="Index">Back to List</a>
                 </div>
                 <!--/. Page Contents-->
-
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
