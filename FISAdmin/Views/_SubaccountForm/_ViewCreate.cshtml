@@ -5,8 +5,11 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
 
+@{
+    ViewData["title"] = "Create New " + @ViewData["type"].ToString();
+}
 
-<form method="post">
+<form method="post" asp-route-type="@ViewData["type"]" asp-route-shortform="@ViewData["shortform"]">
     <div class="card-header bg-success text-white">
         <h3 class="card-title"><b>Enter Kod and Tajuk.</b></h3>
 
@@ -22,15 +25,15 @@
                 <div class="form-group">
                     <label asp-for="Kod" class="control-label"></label>
 
-                    @if (ViewData["type"].ToString() == "Subaccount Aktiviti")
+                    @if (ViewData["shortform"].ToString() == "SA")
                     {
                         <input asp-for="Kod" class="form-control" maxlength="6" minlength="6" required />
                     }
-                    @if (ViewData["type"].ToString() == "Subaccount Kumpulan Wang" || ViewData["type"].ToString() == "Subaccount Penyumbang")
+                    @if (ViewData["shortform"].ToString() == "SKP" || ViewData["shortform"].ToString() == "SP")
                     {
                         <input asp-for="Kod" class="form-control" maxlength="4" minlength="4" required />
                     }
-                    @if (ViewData["type"].ToString() == "Subaccount Sumber")
+                    @if (ViewData["shortform"].ToString() == "SS")
                     {
                         <input asp-for="Kod" class="form-control" maxlength="2" minlength="2" required />
                     }
@@ -42,7 +45,7 @@
                 <div class="form-group">
                     <label asp-for="Tajuk" class="control-label"></label>
 
-                    @if (ViewData["type"].ToString() == "Subaccount Penyumbang")
+                    @if (ViewData["shortform"].ToString() == "SP")
                     {
                         <input asp-for="Tajuk" class="form-control" maxlength="200" minlength="1" required />
                     }
@@ -71,7 +74,7 @@
         </ul>
         <hr />
         @*<div asp-validation-summary="All"></div>*@
-        <button type="submit" class="btn btn-success" style="width:150px"><i class="fa-solid fa-circle-plus"></i>&nbsp Create</button>
+        <button type="submit" class="btn btn-success" style="width:150px"><i class="fa-solid fa-circle-plus" ></i>&nbsp Create</button>
         @*  <a asp-controller="SubaccAktiviti" asp-action="Index" class="btn btn-secondary float-right">Back to Subaccount Aktiviti</a>*@
     </div>
 </form>

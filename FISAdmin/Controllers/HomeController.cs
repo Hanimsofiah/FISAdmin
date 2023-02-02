@@ -35,8 +35,27 @@ namespace FISAdmin.Controllers
             }
         }
 
-        public IActionResult Privacy()
-        {  
+        public IActionResult Privacy(string type, string shortform)
+        {
+
+            switch (shortform)
+            {
+                case "SA":
+                   
+                    break;
+                case "SKP":
+
+                    break;
+                case "SP":
+                    
+                    break;
+                case "SS":
+
+                    break;
+                default:
+                    break;
+            }
+
             return View();
         }
 

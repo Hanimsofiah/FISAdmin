@@ -4,15 +4,12 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
 
-
 @{
-
-    ViewData["Title"] = "Edit";
+    ViewData["title"] = "Edit " + @ViewData["type"].ToString();
     SubaccModel record = ViewData["subacc"] != null ? (SubaccModel)ViewData["subacc"] : null;
-
 }
 
-<form method="post">
+<form method="post" asp-route-type="@ViewData["type"]" asp-route-shortform="@ViewData["shortform"]">
     <div class="card-header bg-primary">
         <h3 class="card-title"><b>Edit for @record.Kod - @record.Tajuk</b></h3>
        
@@ -33,7 +30,7 @@
                 <div class="form-group">
                     <label asp-for="Tajuk" class="control-label"></label>
 
-                    @if (ViewData["type"].ToString() == "Subaccount Penyumbang")
+                    @if (ViewData["shortform"].ToString() == "SP")
                     {
                             <input asp-for="Tajuk" class="form-control" maxlength="200" minlength="1" required />
                     }
