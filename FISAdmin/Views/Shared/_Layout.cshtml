@@ -155,11 +155,40 @@
                                     Subaccount <i class="fa fa-caret-down"></i>
                                 </button>
                                 <div class="dropdown-container">
-                                    <a class="nav-link" asp-area="" asp-controller="Subacc" asp-action="SA_Index">Aktiviti</a>
-                                    <a class="nav-link" asp-area="" asp-controller="Subacc" asp-action="SKP_Index">Kumpulan Wang</a>
-                                    <a class="nav-link" asp-area="" asp-controller="Subacc" asp-action="SP_Index">Penyumbang</a>
-                                    <a class="nav-link" asp-area="" asp-controller="Subacc" asp-action="SS_Index">Sumber</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Subacc" asp-action="Index" asp-route-type="Subaccount Aktiviti" asp-route-shortform="SA">Aktiviti</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Subacc" asp-action="Index" asp-route-type="Subaccount Kumpulan Wang" asp-route-shortform="SKP">Kumpulan Wang</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Subacc" asp-action="Index" asp-route-type="Subaccount Penyumbang" asp-route-shortform="SP">Penyumbang</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Subacc" asp-action="Index" asp-route-type="Subaccount Sumber" asp-route-shortform="SS">Sumber</a>
                                 </div>
+
+                                <button class="dropdown-btn">
+                                    Collection Hub <i class="fa fa-caret-down"></i>
+                                </button>
+                                <div class="dropdown-container">
+                                    <button class="dropdown-btn">
+                                        Billing <i class="fa fa-caret-down"></i>
+                                    </button>
+                                    <div class="dropdown-container">
+                                        <a class="nav-link" asp-area="" asp-controller="Billing" asp-action="Index" asp-route-type="Billing Category Bill" asp-route-shortform="BCB">Category Bill</a>
+                                        <a class="nav-link" asp-area="" asp-controller="Billing" asp-action="Index" asp-route-type="Billing Customer Category" asp-route-shortform="BCC">Customer Category</a>
+                                        <a class="nav-link" asp-area="" asp-controller="Billing" asp-action="Index" asp-route-type="Billing Doc Type" asp-route-shortform="BDT">Doc Type</a>
+                                        <a class="nav-link" asp-area="" asp-controller="Billing" asp-action="Index" asp-route-type="Billing Fis Destination" asp-route-shortform="BFD">Fis Destination</a>
+                                        <a class="nav-link" asp-area="" asp-controller="Billing" asp-action="Index" asp-route-type="Billing Priority" asp-route-shortform="BP">Priority</a>
+                                        <a class="nav-link" asp-area="" asp-controller="Billing" asp-action="Index" asp-route-type="Billing Source Bill" asp-route-shortform="BSCB">Source Bill</a>
+                                        <a class="nav-link" asp-area="" asp-controller="Billing" asp-action="Index" asp-route-type="Billing Status Bill" asp-route-shortform="BSTB">Status Bill</a>
+                                    </div>
+
+                                    <button class="dropdown-btn">
+                                        Payment <i class="fa fa-caret-down"></i>
+                                    </button>
+                                    <div class="dropdown-container">
+                                        <a class="nav-link" asp-area="" asp-controller="Payment" asp-action="Index" asp-route-type="Payment Doc Type" asp-route-shortform="PDT">Doc Type</a>
+                                        <a class="nav-link" asp-area="" asp-controller="Payment" asp-action="Index" asp-route-type="Payment Source" asp-route-shortform="PSC">Source</a>
+                                        <a class="nav-link" asp-area="" asp-controller="Payment" asp-action="Index" asp-route-type="Payment Status" asp-route-shortform="PST">Status</a>
+                                        <a class="nav-link" asp-area="" asp-controller="Payment" asp-action="Index" asp-route-type="Payment Type" asp-route-shortform="PT">Type</a>
+                                    </div>
+                                </div>
+
                            @* }*@
                         </div>
 

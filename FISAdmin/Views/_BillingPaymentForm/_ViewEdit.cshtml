@@ -1,4 +1,4 @@
-﻿@model FISAdmin.Models.SubaccModel
+﻿@model FISAdmin.Models.BillingPaymentModel
 @using Microsoft.AspNetCore.Identity
 @using FISAdmin.Areas.Identity.Data
 @inject UserManager<ApplicationUser> UserManager
@@ -6,13 +6,13 @@
 
 @{
     ViewData["title"] = "Edit " + @ViewData["type"].ToString();
-    SubaccModel record = ViewData["subacc"] != null ? (SubaccModel)ViewData["subacc"] : null;
+    BillingPaymentModel record = ViewData["bp"] != null ? (BillingPaymentModel)ViewData["bp"] : null;
 }
 
 <form method="post" asp-route-type="@ViewData["type"]" asp-route-shortform="@ViewData["shortform"]">
     <div class="card-header bg-primary">
-        <h3 class="card-title"><b>Edit for @record.Kod - @record.Tajuk</b></h3>
-       
+        <h3 class="card-title"><b>Edit for @record.Id - @record.Description</b></h3>
+
         @if (SignInManager.IsSignedIn(User))
         {
             <p class="card-text">by @UserManager.GetUserAsync(User).Result.Nama (@UserManager.GetUserAsync(User).Result.Nopeng)</p>
@@ -22,27 +22,18 @@
     <div class="card-body">
         <ul class="list-group list-group-flush">
             <div class="form-group">
-                <label asp-for="Kod" class="control-label" hidden></label>
-                <input asp-for="Kod" class="form-control" value="@record.Kod" hidden />
-                <span asp-validation-for="Kod" class="text-danger" hidden></span>
+                <label asp-for="Id" class="control-label" hidden></label>
+                <input asp-for="Id" class="form-control" value="@record.Id" hidden />
+                <span asp-validation-for="Id" class="text-danger" hidden></span>
             </div>
             <li class="list-group-item">
                 <div class="form-group">
-                    <label asp-for="Tajuk" class="control-label"></label>
-
-                    @if (ViewData["shortform"].ToString() == "SP")
-                    {
-                            <input asp-for="Tajuk" class="form-control" maxlength="200" minlength="1" required />
-                    }
-                    else
-                    {
-                            <input asp-for="Tajuk" class="form-control" maxlength="100" minlength="1" required />
-                    }
-
-                    <span asp-validation-for="Tajuk" class="text-danger"></span>
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" maxlength="30" minlength="1" required />
+                    <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
             </li>
-            <li class="list-group-item">
+          @*  <li class="list-group-item">
                 <div class="form-group">
                     <label asp-for="LastModifiedBy" class="control-label" hidden></label>
                     <input asp-for="LastModifiedBy" class="form-control" value="@UserManager.GetUserAsync(User).Result.Nopeng" hidden />
@@ -63,10 +54,10 @@
                 <label asp-for="LastModifiedDate" class="control-label" hidden></label>
                 <input asp-for="LastModifiedDate" type="datetime" class="form-control" value="@record.LastModifiedDate" hidden />
                 <span asp-validation-for="LastModifiedDate" class="text-danger" hidden></span>
-            </div>
+            </div>*@
         </ul>
         <hr />
         <button type="submit" class="btn btn-primary" style="width:150px"><i class="fa-solid fa-pen"></i>&nbsp Edit</button>
-        @*  <a asp-controller="SubaccAktiviti" asp-action="Index" class="btn btn-secondary float-right">Back to Subaccount Aktiviti</a>*@
+        @*  <a asp-controller="bpAktiviti" asp-action="Index" class="btn btn-secondary float-right">Back to bpount Aktiviti</a>*@
     </div>
 </form>

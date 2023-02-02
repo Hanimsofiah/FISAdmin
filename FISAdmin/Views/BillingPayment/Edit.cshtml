@@ -1,12 +1,12 @@
-﻿@model FISAdmin.Models.SubaccModel
+﻿@model FISAdmin.Models.BillingPaymentModel
 @using Microsoft.AspNetCore.Identity
 @using FISAdmin.Areas.Identity.Data
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
-    ViewData["title"] = "Delete " + @ViewData["type"].ToString();
-    SubaccModel record = ViewData["subacc"] != null ? (SubaccModel)ViewData["subacc"] : null;
+    ViewData["title"] = "Edit " + @ViewData["type"].ToString();
+    BillingPaymentModel record = ViewData["bp"] != null ? (BillingPaymentModel)ViewData["bp"] : null;
 }
 
 <!-- Content Wrapper. Contains page content -->
@@ -34,7 +34,7 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title"><i class="fa-solid fa-trash"></i>&nbsp @ViewData["title"]</h3>
+                <h3 class="card-title"><i class="fa-solid fa-pen"></i>&nbsp @ViewData["title"]</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
@@ -49,9 +49,9 @@
                 <div class="row">
                     <div class="col">
                         <div class="card" style="width: 100%;">
-                           @* <img class="card-img-top" src="~/AdminLTE/dist/img/logo.png" alt="Card image cap">*@                          
-                            <!--Calling Delete Partial View-->
-                            <partial name="~/Views/_SubaccountForm/_ViewDelete.cshtml" view-data="ViewData" asp-route-type="@ViewData["type"]" asp-route-shortform="@ViewData["shortform"]" />
+                            @*<img class="card-img-top" src="~/AdminLTE/dist/img/logo.png" alt="Card image cap">*@
+                            <!--Calling Edit Partial View-->
+                            <partial name="~/Views/_BillingPaymentForm/_ViewEdit.cshtml" model="record" view-data="ViewData" asp-route-type="@ViewData["type"]" asp-route-shortform="@ViewData["shortform"]" />
                         </div>
                     </div>
                 </div>
@@ -64,22 +64,19 @@
             <div class="card-footer">
                 @ViewData["type"].ToString() - FISAdmin @DateTime.Now.Year
             </div>
-            <!-- /.card-footer-->
+            <!-- /.card-footer -->
         </div>
         <!-- /.card -->
     </section>
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
     <script type="text/JavaScript">
-
-
 
     </script>
 }

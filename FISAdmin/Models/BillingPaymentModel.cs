@@ -23,5 +23,8 @@ namespace FISAdmin.Models
         [Required(ErrorMessage = "Description is required")]
         [StringLength(30, MinimumLength = 1, ErrorMessage = "Description cannot be longer than 30 characters")]
         public string? Description { get; set; }
+
+        /* unique id for cshtml */
+        public string bp_no { get; set; } = "bp";
     }
 }

@@ -1,10 +1,8 @@
 ﻿@model FISAdmin.Models.SubaccModel
 
 @{
-
-    ViewData["title"] = "Details";
+    ViewData["title"] = "Details " + @ViewData["type"].ToString();
     SubaccModel record = ViewData["subacc"] != null ? (SubaccModel)ViewData["subacc"] : null;
-
 }
 
 <!-- Content Wrapper. Contains page content -->
@@ -19,7 +17,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li class="breadcrumb-item"><a asp-action="Index">@ViewData["type"].ToString()</a></li>
+                        <li class="breadcrumb-item"><a asp-action="Index" asp-route-type="@ViewData["type"]" asp-route-shortform="@ViewData["shortform"]">@ViewData["type"].ToString()</a></li>
                         <li class="breadcrumb-item active">@ViewData["title"]</li>
                     </ol>
                 </div>
@@ -32,7 +30,7 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title"><i class="fa-solid fa-eye"></i>&nbsp @ViewData["title"] @ViewData["type"].ToString()</h3>
+                <h3 class="card-title"><i class="fa-solid fa-eye"></i>&nbsp @ViewData["title"]</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
@@ -53,12 +51,12 @@
                                 <p class="card-text">Last Modified by @record.LastModifiedBy at @record.LastModifiedDate</p>
                             </div>
                             <!--Calling Details Partial View-->
-                            <partial name="~/Views/_SubaccountForm/_ViewDetails.cshtml" model="@record" view-data="ViewData" />
+                            <partial name="~/Views/_SubaccountForm/_ViewDetails.cshtml" model="@record" view-data="ViewData" asp-route-type="@ViewData["type"]" asp-route-shortform="@ViewData["shortform"]" />
                         </div>
                     </div>
                 </div>
                 <div>
-                    <a asp-action="Index">Back to List</a>
+                    <a asp-action="Index" asp-route-type="@ViewData["type"]" asp-route-shortform="@ViewData["shortform"]">Back to List</a>
                 </div>
                 <!--/. Page Contents-->
             </div>

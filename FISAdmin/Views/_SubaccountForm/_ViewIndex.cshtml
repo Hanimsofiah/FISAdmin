@@ -1,13 +1,8 @@
 ﻿@model FISAdmin.Models.SubaccModel
 
-
 @{
-
-    ViewData["title"] = "Index";
-   
-
+    ViewData["title"] = "List of " + @ViewData["type"].ToString();
 }
-
 
 <tbody>
     @foreach (var obj in ViewData["subacc"] as List<SubaccModel>)
@@ -22,9 +17,9 @@
             <td>
                 <div class="w-75 btn-group" role="group">
                     @*Tag Helper*@
-                    <a asp-action="Details" asp-route-id="@obj.Kod" class="btn btn-secondary mx-2"><i class="fa-solid fa-eye"></i>&nbsp Details</a>
-                    <a asp-action="Edit" asp-route-id="@obj.Kod" class="btn btn-primary mx-2"><i class="fa-solid fa-pen"></i>&nbsp Edit</a>
-                    <a asp-action="Delete" asp-route-id="@obj.Kod" class="btn btn-danger mx-2"><i class="fa-solid fa-trash"></i>&nbsp Delete</a>
+                    <a asp-action="Details" asp-route-id="@obj.Kod" asp-route-type="@ViewData["type"]" asp-route-shortform="@ViewData["shortform"]" class="btn btn-secondary mx-2"><i class="fa-solid fa-eye"></i>&nbsp Details</a>
+                    <a asp-action="Edit" asp-route-id="@obj.Kod" asp-route-type="@ViewData["type"]" asp-route-shortform="@ViewData["shortform"]" class="btn btn-primary mx-2"><i class="fa-solid fa-pen"></i>&nbsp Edit</a>
+                    <a asp-action="Delete" asp-route-id="@obj.Kod" asp-route-type="@ViewData["type"]" asp-route-shortform="@ViewData["shortform"]" class="btn btn-danger mx-2"><i class="fa-solid fa-trash"></i>&nbsp Delete</a>
                 </div>
             </td>
         </tr>
