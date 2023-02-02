@@ -20,6 +20,9 @@ namespace FISAdmin.Controllers
         //GET: Index
         public IActionResult Index(string type, string shortform)
         {
+            int no = 0;
+            string subacc_no= "subacc";
+
             switch (shortform)
             {
                 case "SA":
@@ -48,6 +51,8 @@ namespace FISAdmin.Controllers
                     while (dr.Read())
                     {
                         SubaccModel subacc = new SubaccModel();
+                        no++;
+                        subacc.subacc_no = subacc_no + no.ToString();
                         subacc.Kod = dr.GetString(0);
                         subacc.Tajuk = dr.GetString(1);
                         subacc.CreatedBy = dr.IsDBNull(2) ? null : dr.GetString(2);

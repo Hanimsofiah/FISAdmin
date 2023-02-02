@@ -43,5 +43,8 @@ namespace FISAdmin.Models
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",ApplyFormatInEditMode = true)]
         public DateTime? LastModifiedDate { get; set; }
+
+        /* unique id for cshtml */
+        public string subacc_no { get; set; } = "subacc";
     }
 }
