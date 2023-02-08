@@ -11,11 +11,11 @@
 <form method="post" asp-route-type="@ViewData["type"]" asp-route-shortform="@ViewData["shortform"]">
     <div class="card-header bg-success text-white">
         <h3 class="card-title"><b>Enter Kod and Tajuk.</b></h3>
-
+@*
         @if (SignInManager.IsSignedIn(User))
         {
             <p class="card-text">by @UserManager.GetUserAsync(User).Result.Nama (@UserManager.GetUserAsync(User).Result.Nopeng)</p>
-        }
+        }*@
 
     </div>
     <div class="card-body">
