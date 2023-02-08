@@ -24,7 +24,29 @@ namespace FISAdmin.Models
         [StringLength(30, MinimumLength = 1, ErrorMessage = "Description cannot be longer than 30 characters")]
         public string? Description { get; set; }
 
+        [DisplayName("Created By")]
+        [Column("CreatedBy")]
+        [DataType(DataType.Text)]
+        public string? CreatedBy { get; set; }
+
+        [DisplayName("Created On")]
+        [Column("CreatedDate")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? CreatedDate { get; set; }
+
+        [DisplayName("Last Modified By")]
+        [Column("LastModifiedBy")]
+        public string? LastModifiedBy { get; set; }
+
+        [DisplayName("Last Modified On")]
+        [Column("LastModifiedDate")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? LastModifiedDate { get; set; }
+
         /* unique id for cshtml */
         public string bp_no { get; set; } = "bp";
+
     }
 }
