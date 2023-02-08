@@ -1,8 +1,7 @@
 ﻿@model FISAdmin.Models.RolesModel
 
 @{
-
-    ViewData["title"] = "List of";
+    ViewData["title"] = "List of " + @ViewData["type"].ToString();
 }
 
 <!-- Content Wrapper. Contains page content -->
@@ -29,7 +28,7 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">@ViewData["title"] @ViewData["type"].ToString()</h3>
+                <h3 class="card-title">@ViewData["title"]</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
@@ -81,7 +80,36 @@
                                             <div class="w-75 btn-group" role="group">
                                                 @*Tag Helper*@
                                                 <a asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2"><i class="fa-solid fa-pen"></i>&nbsp Edit</a>
-                                                <a asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2"><i class="fa-solid fa-trash"></i>&nbsp Delete</a>
+                                                @*<a asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2"><i class="fa-solid fa-trash"></i>&nbsp Delete</a>*@
+                                                <!-- Delete Button trigger modal -->
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_@obj.role_no">
+                                                    <i class="fa-solid fa-trash"></i>&nbsp Delete
+                                                </button>
+                                                <!-- Delete Modal -->
+                                                <div class="modal fade" id="delete_@obj.role_no" tabindex="-1" role="dialog" aria-labelledby="deletemodal" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header bg-danger">
+                                                                <h5 class="modal-title" id="deletemodal"><i class="fa-solid fa-trash"></i>&nbsp Delete for @obj.Name</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure to delete @obj.Name ?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <form asp-action="Delete">
+                                                                    <label asp-for="Id" class="control-label" hidden></label>
+                                                                    <input asp-for="Id" class="form-control" value="@obj.Id" hidden />
+                                                                    <span asp-validation-for="Id" class="text-danger" hidden></span>
+                                                                    <button type="submit" class="btn btn-danger mx-2"><i class="fa-solid fa-trash"></i>&nbsp Delete</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>

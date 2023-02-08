@@ -60,58 +60,58 @@
                                 <div class="card-header bg-primary">
                                     <h3 class="card-title"><b>Edit for @record.Nopeng</b></h3>
 
-                                    @if (SignInManager.IsSignedIn(User))
+                                    @*@if (SignInManager.IsSignedIn(User))
                                     {
                                         <p class="card-text">by @UserManager.GetUserAsync(User).Result.Nama (@UserManager.GetUserAsync(User).Result.Nopeng) </p>
-                                    }
+                                    }*@
 
                                 </div>
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
-                                            <label asp-for="Id" class="control-label" hidden></label>
-                                            <input asp-for="Id" class="form-control" value="@record.Id" hidden />
-                                            <span asp-validation-for="Id" class="text-danger" hidden></span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <label asp-for="Nopeng" class="control-label" disabled></label>
-                                            <input asp-for="Nopeng" class="form-control" value="@record.Nopeng" disabled />
-                                            <span asp-validation-for="Nopeng" class="text-danger" disabled></span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <label asp-for="Nama" class="control-label" disabled></label>
-                                            <input asp-for="Nama" class="form-control" value="@record.Nama" disabled />
-                                            <span asp-validation-for="Nama" class="text-danger" disabled></span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <label asp-for="Email" class="control-label" disabled></label>
-                                            <input asp-for="Email" class="form-control" value="@record.Email" disabled />
-                                            <span asp-validation-for="Email" class="text-danger" disabled></span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <label asp-for="ActiveStatus" class="control-label"></label>
-                                            <select class="form-control select2bs4" asp-for="ActiveStatus">
+                                            <div class="form-group">
+                                                <label asp-for="Id" class="control-label" hidden></label>
+                                                <input asp-for="Id" class="form-control" value="@record.Id" hidden />
+                                                <span asp-validation-for="Id" class="text-danger" hidden></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Nopeng" class="control-label" disabled></label>
+                                                <input asp-for="Nopeng" class="form-control" value="@record.Nopeng" disabled />
+                                                <span asp-validation-for="Nopeng" class="text-danger" disabled></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Nama" class="control-label" disabled></label>
+                                                <input asp-for="Nama" class="form-control" value="@record.Nama" disabled />
+                                                <span asp-validation-for="Nama" class="text-danger" disabled></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Email" class="control-label" disabled></label>
+                                                <input asp-for="Email" class="form-control" value="@record.Email" disabled />
+                                                <span asp-validation-for="Email" class="text-danger" disabled></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="ActiveStatus" class="control-label"></label>
+                                                <select class="form-control select2bs4" asp-for="ActiveStatus">
 
-                                                @if (@record.ActiveStatus == 1)
-                                                {
-                                                    <option selected="selected" value="@record.ActiveStatus">Active</option>
-                                                    <option value="2">Inactive</option>
-                                                }
-                                                else
-                                                {
-                                                    <option value="1">Active</option>
-                                                    <option selected="selected" value="@record.ActiveStatus">Inactive</option>
-                                                }
+                                                    @if (@record.ActiveStatus == 1)
+                                                    {
+                                                        <option selected="selected" value="@record.ActiveStatus">Active</option>
+                                                        <option value="2">Inactive</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="1">Active</option>
+                                                        <option selected="selected" value="@record.ActiveStatus">Inactive</option>
+                                                    }
 
-                                            </select>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <label asp-for="RoleName" class="control-label"></label>
-                                            <select class="form-control select2bs4" asp-for="RoleId" asp-items="Model.Roles">
-                                                <option selected="selected" value="@record.RoleId" hidden>@record.RoleName</option>
-                                            </select>
-                                        </li>
-                                        <li class="list-group-item">
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="RoleName" class="control-label"></label>
+                                                <select class="form-control select2bs4" asp-for="RoleId" asp-items="Model.Roles">
+                                                    <option selected="selected" value="@record.RoleId" hidden>@record.RoleName</option>
+                                                </select>
+                                            </div>
                                             <div class="form-group">
                                                 <label asp-for="LastModifiedBy" class="control-label" hidden></label>
                                                 <input asp-for="LastModifiedBy" class="form-control" value="@UserManager.GetUserAsync(User).Result.Nopeng" hidden />

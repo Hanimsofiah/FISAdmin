@@ -19,6 +19,8 @@ namespace FISAdmin.Controllers
         //GET: Index
         public IActionResult Index()
         {
+            int no = 0;
+            string r = "role";
             using (SqlConnection con = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
             {
                 string sql = "SELECT Id,Name FROM AspNetRoles";
@@ -29,7 +31,9 @@ namespace FISAdmin.Controllers
                 {
                     while (dr.Read())
                     {
+                        no++;
                         RolesModel role = new RolesModel();
+                        role.role_no = r + no.ToString();
                         role.Id = dr.GetString(0);
                         role.Name = dr.GetString(1);                  
                         result.Add(role);
@@ -180,15 +184,35 @@ namespace FISAdmin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete()
         {
+
             using (SqlConnection con = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
             {
-                string sql = "DELETE FROM AspNetRoles WHERE Id=@Id";
+                string sql = "SELECT * FROM AspNetUserRoles WHERE RoleId=@RoleId";
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@Id", System.Data.SqlDbType.NVarChar).Value = Request.Form["Id"].ToString();
+                cmd.Parameters.Add("@RoleId", System.Data.SqlDbType.NVarChar).Value = Request.Form["Id"].ToString();
                 con.Open();
-                cmd.ExecuteNonQuery();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    ModelState.AddModelError("Name", "Role is assigned to user");
+                    TempData["error"] = "Role is already assigned to one or more user!";
+                }
+                else
+                {
+                    con.Close();
+                    using (SqlConnection con2 = new SqlConnection(config.GetConnectionString("ApplicationDbContextConnection")))
+                    {
+                        string sql2 = "DELETE FROM AspNetRoles WHERE Id=@Id";
+                        SqlCommand cmd2 = new SqlCommand(sql2, con);
+                        cmd2.Parameters.Add("@Id", System.Data.SqlDbType.NVarChar).Value = Request.Form["Id"].ToString();
+                        con.Open();
+                        cmd2.ExecuteNonQuery();
+                        TempData["success"] = "Access Role deleted successfully";
+                        ViewData["type"] = type;
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
             }
-            TempData["success"] = "Access Role deleted successfully";
             ViewData["type"] = type;
             return RedirectToAction(nameof(Index));
         }

@@ -56,20 +56,20 @@
                                 <div class="card-header bg-primary">
                                     <h3 class="card-title"><b>Edit for @record.Name</b></h3>
 
-                                    @if (SignInManager.IsSignedIn(User))
+                                   @* @if (SignInManager.IsSignedIn(User))
                                     {
                                         <p class="card-text">by @UserManager.GetUserAsync(User).Result.Nama (@UserManager.GetUserAsync(User).Result.Nopeng) </p>
-                                    }
+                                    }*@
 
                                 </div>
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush">
-                                        <div class="form-group">
-                                            <label asp-for="Id" class="control-label" hidden></label>
-                                            <input asp-for="Id" class="form-control" value="@record.Id" hidden />
-                                            <span asp-validation-for="Id" class="text-danger" hidden></span>
-                                        </div>
                                         <li class="list-group-item">
+                                            <div class="form-group">
+                                                <label asp-for="Id" class="control-label" hidden></label>
+                                                <input asp-for="Id" class="form-control" value="@record.Id" hidden />
+                                                <span asp-validation-for="Id" class="text-danger" hidden></span>
+                                            </div>                                    
                                             <div class="form-group">
                                                 <label asp-for="Name" class="control-label"></label>
                                                 <input asp-for="Name" class="form-control" value="@record.Name" />
